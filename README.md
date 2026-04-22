@@ -10,7 +10,6 @@
 | Language | TypeScript 5 |
 | Styling | Tailwind CSS 4 |
 | Backend/DB | Supabase (Auth + PostgreSQL + Storage) |
-| i18n | next-intl (vi / ko) |
 | Deployment | Vercel |
 
 ## 프로젝트 구조
