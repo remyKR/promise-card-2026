@@ -1,0 +1,336 @@
+{
+  "_meta": {
+    "name": "Promise Card — Component Specs",
+    "version": "0.1.0",
+    "description": "Layer trees + token bindings for talk-to-figma MCP to reconstruct.",
+    "notes": "Every fill/stroke/spacing references a Variable in design-tokens.json via `var:` prefix. Claude Code should resolve these to Figma Variables created in Phase 1."
+  },
+
+  "components": [
+    {
+      "name": "Button/Primary",
+      "description": "저장 · save button",
+      "variants": [
+        { "name": "state=default", "fill": "var:Semantic.color.action.primary", "text": "var:Semantic.color.text.inverse" },
+        { "name": "state=hover",   "fill": "var:Semantic.color.action.primaryHover", "text": "var:Semantic.color.text.inverse" }
+      ],
+      "layout": {
+        "type": "autolayout",
+        "direction": "horizontal",
+        "primaryAlign": "center", "counterAlign": "center",
+        "paddingX": "var:Spacing.6", "paddingY": "var:Spacing.3",
+        "cornerRadius": "var:Radius.full"
+      },
+      "children": [
+        { "type": "text", "name": "label", "content": "저장", "typography": "var:Typography.style.buttonLabel", "fill": "var:Semantic.color.text.inverse" }
+      ]
+    },
+    {
+      "name": "Button/Secondary",
+      "description": "홈으로 · back",
+      "variants": [
+        { "name": "state=default", "fill": "var:Semantic.color.action.secondary", "text": "var:Semantic.color.text.tertiary" },
+        { "name": "state=hover",   "fill": "var:Semantic.color.action.secondaryHover" }
+      ],
+      "layout": {
+        "type": "autolayout", "direction": "horizontal",
+        "paddingX": "var:Spacing.6", "paddingY": "var:Spacing.3",
+        "cornerRadius": "var:Radius.full"
+      },
+      "children": [
+        { "type": "text", "name": "label", "content": "홈으로", "typography": "var:Typography.style.buttonLabel", "fill": "var:Semantic.color.text.tertiary" }
+      ]
+    },
+    {
+      "name": "Button/Ghost",
+      "layout": { "type": "autolayout", "paddingX": "var:Spacing.3", "paddingY": "var:Spacing.2", "cornerRadius": "var:Radius.sm" },
+      "children": [
+        { "type": "text", "content": "이전테마", "typography": "var:Typography.style.buttonLabel", "fill": "var:Semantic.color.text.secondary" }
+      ]
+    },
+    {
+      "name": "Input/Underline",
+      "description": "Form text input — underline style",
+      "layout": {
+        "type": "autolayout", "direction": "vertical",
+        "gap": "var:Spacing.2",
+        "width": 240
+      },
+      "variants": [
+        { "name": "state=empty",  "underlineColor": "var:Semantic.color.border.subtle", "valueColor": "var:Semantic.color.text.placeholder" },
+        { "name": "state=filled", "underlineColor": "var:Semantic.color.border.strong", "valueColor": "var:Semantic.color.text.primary" }
+      ],
+      "children": [
+        { "type": "text", "name": "label", "content": "Cô dâu", "typography": "var:Typography.style.label", "fill": "var:Semantic.color.text.tertiary" },
+        {
+          "type": "frame", "name": "field",
+          "layout": { "type": "autolayout", "paddingY": "var:Spacing.3" },
+          "border": { "side": "bottom", "width": 2, "color": "{parent.underlineColor}" },
+          "children": [
+            { "type": "text", "name": "value", "content": "Nguyễn", "typography": "var:Typography.style.inputValue", "fill": "{parent.valueColor}" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Select/Underline",
+      "layout": { "type": "autolayout", "direction": "vertical", "gap": "var:Spacing.2", "width": 140 },
+      "variants": [
+        { "name": "state=empty",  "underlineColor": "var:Semantic.color.border.subtle", "valueColor": "var:Semantic.color.text.placeholder" },
+        { "name": "state=filled", "underlineColor": "var:Semantic.color.border.strong", "valueColor": "var:Semantic.color.text.primary" }
+      ],
+      "children": [
+        {
+          "type": "frame", "name": "field",
+          "layout": { "type": "autolayout", "direction": "horizontal", "primaryAlign": "space-between", "paddingY": "var:Spacing.3" },
+          "border": { "side": "bottom", "width": 2, "color": "{parent.underlineColor}" },
+          "children": [
+            { "type": "text", "content": "Con trai", "typography": "var:Typography.style.inputValue", "fill": "{parent.valueColor}" },
+            { "type": "icon", "name": "chevron", "source": "chevron-down", "size": 8, "fill": "{parent.valueColor}" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Swatch/Circle",
+      "description": "Color preset — 36px circle",
+      "layout": { "type": "frame", "width": 36, "height": 36, "cornerRadius": "var:Radius.full" },
+      "variants": [
+        { "name": "state=default",  "stroke": "transparent", "strokeWidth": 2 },
+        { "name": "state=selected", "stroke": "var:Primitives.color.gray.950", "strokeWidth": 2 }
+      ],
+      "instances": [
+        { "fill": "var:Primitives.color.swatch.peach",    "label": "peach" },
+        { "fill": "var:Primitives.color.swatch.blush",    "label": "blush" },
+        { "fill": "var:Primitives.color.swatch.blue",     "label": "blue" },
+        { "fill": "var:Primitives.color.swatch.cream",    "label": "cream" },
+        { "fill": "var:Primitives.color.swatch.mint",     "label": "mint" },
+        { "fill": "var:Primitives.color.swatch.lavender", "label": "lavender" },
+        { "fill": "var:Primitives.color.swatch.violet",   "label": "violet" }
+      ]
+    },
+    {
+      "name": "ThemeCard",
+      "description": "Carousel theme item — 130×200",
+      "layout": {
+        "type": "frame", "width": 130, "height": 200,
+        "cornerRadius": "var:Radius.lg", "clip": true
+      },
+      "variants": [
+        { "name": "state=default",  "checkVisible": false },
+        { "name": "state=selected", "checkVisible": true }
+      ],
+      "children": [
+        { "type": "image", "name": "bg", "fit": "cover", "fillEntire": true },
+        {
+          "type": "frame", "name": "check-badge",
+          "position": { "top": 10, "right": 10 },
+          "layout": { "width": 24, "height": 24, "cornerRadius": "var:Radius.full" },
+          "fill": "var:Primitives.color.gray.950",
+          "visible": "{parent.checkVisible}",
+          "children": [
+            { "type": "icon", "name": "check", "source": "check", "size": 10, "stroke": "var:Primitives.color.gray.0" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Stepper",
+      "description": "1/4 progress · arrows",
+      "layout": { "type": "autolayout", "direction": "horizontal", "gap": "var:Spacing.3", "counterAlign": "center" },
+      "children": [
+        { "type": "text", "name": "count", "content": "1/4", "typography": "var:Typography.style.label", "fill": "var:Semantic.color.text.tertiary" },
+        {
+          "type": "frame", "name": "track",
+          "layout": { "width": 240, "height": 2, "cornerRadius": 2 },
+          "fill": "var:Primitives.color.gray.300",
+          "children": [
+            { "type": "frame", "name": "fill", "layout": { "width": "25%", "height": 2 }, "fill": "var:Primitives.color.gray.900" }
+          ]
+        },
+        {
+          "type": "frame", "name": "nav",
+          "layout": { "type": "autolayout", "direction": "horizontal" },
+          "children": [
+            { "type": "frame", "name": "prev", "layout": { "width": 40, "height": 40, "cornerRadius": "var:Radius.sm" }, "children": [ { "type": "icon", "source": "chevron-left", "stroke": "var:Primitives.color.gray.400" } ] },
+            { "type": "line", "orientation": "vertical", "length": 16, "stroke": "var:Primitives.color.gray.400" },
+            { "type": "frame", "name": "next", "layout": { "width": 40, "height": 40, "cornerRadius": "var:Radius.sm" }, "children": [ { "type": "icon", "source": "chevron-right", "stroke": "var:Primitives.color.gray.700" } ] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ThemePagination",
+      "description": "이전테마 · 1/8 · 다음테마 — above the preview card",
+      "layout": { "type": "autolayout", "direction": "horizontal", "primaryAlign": "space-between", "counterAlign": "center", "paddingY": "var:Spacing.3", "width": 390 },
+      "border": { "side": "top-bottom", "width": 1, "color": "var:Semantic.color.border.accent" },
+      "children": [
+        { "type": "text", "content": "이전테마", "typography": "var:Typography.style.buttonLabel", "fill": "var:Semantic.color.text.accent" },
+        { "type": "text", "content": "1 / 8",   "typography": { "fontFamily": "Times New Roman", "fontStyle": "italic", "fontSize": 18 }, "fill": "var:Semantic.color.text.primary" },
+        { "type": "text", "content": "다음테마", "typography": "var:Typography.style.buttonLabel", "fill": "var:Semantic.color.text.accent" }
+      ]
+    },
+    {
+      "name": "PreviewFrame",
+      "description": "390×844 mobile wedding card preview",
+      "layout": {
+        "type": "frame", "width": 390, "height": 844,
+        "cornerRadius": "var:Radius.xl",
+        "fill": "var:Semantic.color.surface.card",
+        "padding": 10,
+        "effect": "var:Shadow.lg"
+      },
+      "children": [
+        {
+          "type": "frame", "name": "inner", "fillEntire": true,
+          "layout": { "type": "autolayout", "direction": "vertical", "primaryAlign": "space-between", "padding": 32 },
+          "cornerRadius": 12,
+          "image": { "fit": "cover", "overlay": "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.5) 100%)" },
+          "children": [
+            { "type": "frame", "name": "cap-row", "layout": { "type": "autolayout", "direction": "horizontal", "primaryAlign": "space-between" }, "children": [
+              { "type": "text", "content": "SIMPLY", "typography": "var:Typography.style.eyebrow", "fill": "var:Primitives.color.gray.0" },
+              { "type": "text", "content": "MEANING", "typography": "var:Typography.style.eyebrow", "fill": "var:Primitives.color.gray.0" }
+            ]},
+            { "type": "text", "name": "date", "content": "26\n10\n24", "typography": { "fontFamily": "Times New Roman", "fontStyle": "italic", "fontSize": 96, "lineHeight": 0.95, "fontWeight": 500 }, "fill": "var:Primitives.color.gray.0", "align": "center" },
+            { "type": "frame", "name": "foot-row", "layout": { "type": "autolayout", "direction": "horizontal", "primaryAlign": "space-between" }, "children": [
+              { "type": "text", "content": "TO BE",    "typography": "var:Typography.style.eyebrow", "fill": "var:Primitives.color.gray.0" },
+              { "type": "text", "content": "TOGETHER", "typography": "var:Typography.style.eyebrow", "fill": "var:Primitives.color.gray.0" }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Logo",
+      "description": "Diamond mark + 'promise card' wordmark",
+      "layout": { "type": "autolayout", "direction": "horizontal", "gap": "var:Spacing.2", "counterAlign": "center" },
+      "children": [
+        { "type": "icon", "name": "mark", "source": "assets/logo/diamond.svg", "width": 38, "height": 30, "fill": "var:Primitives.color.gray.950" },
+        { "type": "text", "content": "promise\ncard", "typography": { "fontFamily": "SUIT", "fontWeight": 700, "fontSize": 16, "lineHeight": 0.89 }, "fill": "var:Primitives.color.gray.950" }
+      ]
+    },
+    {
+      "name": "SectionHeader",
+      "layout": { "type": "autolayout", "direction": "vertical" },
+      "children": [
+        { "type": "text", "name": "title", "content": "테마를\n선택해주세요.", "typography": "var:Typography.style.cardHeading", "fill": "var:Semantic.color.text.primary" }
+      ]
+    }
+  ],
+
+  "screens": [
+    {
+      "name": "B — Editor Screen",
+      "source": "Figma frame 1:85 (1920×1372)",
+      "layout": {
+        "type": "frame", "width": 1920, "height": 1372,
+        "fill": "var:Primitives.color.cream.100"
+      },
+      "regions": [
+        {
+          "name": "Header",
+          "bounds": { "x": 0, "y": 0, "width": 1440, "height": 72 },
+          "padding": { "x": 20 },
+          "children": [
+            { "component": "Logo", "position": { "x": 20, "y": 20 } }
+          ]
+        },
+        {
+          "name": "Preview Area",
+          "bounds": { "x": 0, "y": 72, "width": 1440, "height": 1300 },
+          "layout": { "type": "autolayout", "direction": "vertical", "counterAlign": "center", "gap": 32, "paddingTop": 0, "paddingBottom": 80 },
+          "children": [
+            { "component": "WordmarkImage", "src": "assets/logo/promise-card-wordmark.png", "width": 266, "height": 83 },
+            { "component": "ThemePagination", "width": 390 },
+            { "component": "PreviewFrame" }
+          ]
+        },
+        {
+          "name": "Right Panel",
+          "bounds": { "x": 1440, "y": 0, "width": 480, "height": 1372 },
+          "fill": "var:Semantic.color.surface.panel",
+          "sections": [
+            {
+              "name": "Top actions",
+              "layout": { "type": "autolayout", "direction": "horizontal", "primaryAlign": "space-between", "padding": 40, "height": 80 },
+              "children": [
+                { "component": "Button/Secondary", "props": { "label": "홈으로" } },
+                { "component": "Button/Primary",   "props": { "label": "저장" } }
+              ]
+            },
+            {
+              "name": "Theme picker",
+              "padding": { "x": 32 },
+              "children": [
+                { "component": "SectionHeader", "props": { "title": "테마를\n선택해주세요." } },
+                { "name": "carousel", "layout": { "direction": "horizontal", "gap": 16 }, "children": [
+                  { "component": "ThemeCard", "variant": "selected" },
+                  { "component": "ThemeCard" },
+                  { "component": "ThemeCard" },
+                  { "component": "ThemeCard" },
+                  { "component": "ThemeCard" }
+                ]},
+                { "component": "Stepper",  "props": { "count": "1/4", "progress": 0.25 } },
+                { "name": "swatch-row", "layout": { "direction": "horizontal", "gap": 16 }, "children": [
+                  { "component": "Swatch/Circle", "variant": "peach" },
+                  { "component": "Swatch/Circle", "variant": "blush" },
+                  { "component": "Swatch/Circle", "variant": "blue", "state": "selected" },
+                  { "component": "Swatch/Circle", "variant": "cream" },
+                  { "component": "Swatch/Circle", "variant": "mint" },
+                  { "component": "Swatch/Circle", "variant": "lavender" },
+                  { "component": "Swatch/Circle", "variant": "violet" }
+                ]}
+              ]
+            },
+            {
+              "name": "Form",
+              "padding": { "x": 32, "y": 48 },
+              "gap": 40,
+              "children": [
+                { "component": "SectionHeader", "props": { "title": "기본정보를\n입력해주세요." } },
+                {
+                  "name": "Cô dâu group",
+                  "layout": { "direction": "vertical", "gap": 24 },
+                  "children": [
+                    { "type": "text", "content": "Cô dâu", "typography": "var:Typography.style.label", "fill": "var:Semantic.color.text.tertiary" },
+                    { "layout": { "direction": "horizontal", "gap": 16 }, "children": [
+                      { "component": "Input/Underline",  "props": { "label": "성",    "value": "Nguyễn", "state": "filled", "width": 120 } },
+                      { "component": "Input/Underline",  "props": { "label": "이름",  "placeholder": "이름", "state": "empty", "width": 164 } },
+                      { "component": "Select/Underline", "props": { "placeholder": "Con trai", "width": 100 } }
+                    ]},
+                    { "layout": { "direction": "horizontal", "gap": 16 }, "children": [
+                      { "component": "Input/Underline",  "props": { "placeholder": "아버지 성함", "width": 300 } },
+                      { "component": "Select/Underline", "props": { "placeholder": "Bố", "width": 100 } }
+                    ]},
+                    { "layout": { "direction": "horizontal", "gap": 16 }, "children": [
+                      { "component": "Input/Underline",  "props": { "placeholder": "어머니 성함", "width": 300 } },
+                      { "component": "Select/Underline", "props": { "placeholder": "Mẹ", "width": 100 } }
+                    ]}
+                  ]
+                },
+                {
+                  "name": "Chú rể group",
+                  "layout": { "direction": "vertical", "gap": 24 },
+                  "children": [
+                    { "type": "text", "content": "Chú rể", "typography": "var:Typography.style.label", "fill": "var:Semantic.color.text.tertiary" },
+                    { "layout": { "direction": "horizontal", "gap": 16 }, "children": [
+                      { "component": "Input/Underline",  "props": { "label": "Họ", "state": "filled", "width": 120 } },
+                      { "component": "Input/Underline",  "props": { "placeholder": "Tên", "width": 164 } },
+                      { "component": "Select/Underline", "props": { "placeholder": "Con trai", "width": 100 } }
+                    ]}
+                  ]
+                },
+                {
+                  "type": "text",
+                  "content": "· Thông tin bố mẹ có thể bỏ qua.",
+                  "typography": "var:Typography.style.caption",
+                  "fill": "var:Semantic.color.text.tertiary"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

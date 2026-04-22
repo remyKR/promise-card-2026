@@ -1,0 +1,170 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "_meta": {
+    "name": "Promise Card Design System",
+    "version": "0.1.0",
+    "source": "tokens.css",
+    "figma": {
+      "collections": [
+        { "name": "Primitives",  "modes": ["Default"] },
+        { "name": "Semantic",    "modes": ["Light"] },
+        { "name": "Typography",  "modes": ["Default"] },
+        { "name": "Spacing",     "modes": ["Default"] },
+        { "name": "Radius",      "modes": ["Default"] },
+        { "name": "Shadow",      "modes": ["Default"] }
+      ]
+    }
+  },
+
+  "Primitives": {
+    "color": {
+      "gray": {
+        "0":   { "$value": "#FFFFFF", "$type": "color" },
+        "50":  { "$value": "#FAFAF9", "$type": "color" },
+        "100": { "$value": "#F3F4F6", "$type": "color" },
+        "200": { "$value": "#EEEEEE", "$type": "color" },
+        "300": { "$value": "#E5E7EB", "$type": "color" },
+        "400": { "$value": "#D1D5DB", "$type": "color" },
+        "500": { "$value": "#AFB7C5", "$type": "color" },
+        "600": { "$value": "#6B7280", "$type": "color" },
+        "700": { "$value": "#4F4F4F", "$type": "color" },
+        "800": { "$value": "#333333", "$type": "color" },
+        "900": { "$value": "#111723", "$type": "color" },
+        "950": { "$value": "#000000", "$type": "color" }
+      },
+      "gold": {
+        "50":  { "$value": "#FBF5F0", "$type": "color" },
+        "100": { "$value": "#F4EAE4", "$type": "color" },
+        "200": { "$value": "#EDDBC9", "$type": "color" },
+        "300": { "$value": "#DCB58A", "$type": "color" },
+        "400": { "$value": "#D5905E", "$type": "color" },
+        "500": { "$value": "#CDA66E", "$type": "color" },
+        "600": { "$value": "#A47A3F", "$type": "color" },
+        "700": { "$value": "#7B4401", "$type": "color" },
+        "800": { "$value": "#5A3201", "$type": "color" },
+        "900": { "$value": "#3A2000", "$type": "color" }
+      },
+      "cream": {
+        "50":  { "$value": "#FDFAF7", "$type": "color" },
+        "100": { "$value": "#FBF5F0", "$type": "color" },
+        "200": { "$value": "#F4EAE4", "$type": "color" },
+        "300": { "$value": "#E8D9CD", "$type": "color" }
+      },
+      "swatch": {
+        "peach":    { "$value": "#FFF2EC", "$type": "color" },
+        "blush":    { "$value": "#FDE4DC", "$type": "color" },
+        "blue":     { "$value": "#1E77EB", "$type": "color" },
+        "cream":    { "$value": "#FDF6E6", "$type": "color" },
+        "mint":     { "$value": "#E2F9FF", "$type": "color" },
+        "lavender": { "$value": "#E5E0F2", "$type": "color" },
+        "violet":   { "$value": "#C9B6E8", "$type": "color" }
+      }
+    }
+  },
+
+  "Semantic": {
+    "color": {
+      "text": {
+        "primary":     { "$value": "{Primitives.color.gray.900}", "$type": "color" },
+        "secondary":   { "$value": "{Primitives.color.gray.700}", "$type": "color" },
+        "tertiary":    { "$value": "{Primitives.color.gray.600}", "$type": "color" },
+        "placeholder": { "$value": "{Primitives.color.gray.500}", "$type": "color" },
+        "inverse":     { "$value": "{Primitives.color.gray.0}",   "$type": "color" },
+        "accent":      { "$value": "{Primitives.color.gold.700}", "$type": "color" }
+      },
+      "surface": {
+        "canvas": { "$value": "{Primitives.color.cream.100}", "$type": "color" },
+        "header": { "$value": "{Primitives.color.cream.200}", "$type": "color" },
+        "panel":  { "$value": "{Primitives.color.gray.0}",    "$type": "color" },
+        "card":   { "$value": "{Primitives.color.gray.0}",    "$type": "color" },
+        "muted":  { "$value": "{Primitives.color.gray.100}",  "$type": "color" }
+      },
+      "border": {
+        "subtle":  { "$value": "{Primitives.color.gray.300}", "$type": "color" },
+        "default": { "$value": "{Primitives.color.gray.400}", "$type": "color" },
+        "strong":  { "$value": "{Primitives.color.gray.800}", "$type": "color" },
+        "accent":  { "$value": "#7B44014D", "$type": "color" }
+      },
+      "action": {
+        "primary":        { "$value": "{Primitives.color.gray.950}", "$type": "color" },
+        "primaryHover":   { "$value": "{Primitives.color.gray.800}", "$type": "color" },
+        "secondary":      { "$value": "{Primitives.color.gray.300}", "$type": "color" },
+        "secondaryHover": { "$value": "{Primitives.color.gray.400}", "$type": "color" }
+      },
+      "accent": {
+        "default": { "$value": "{Primitives.color.gold.500}", "$type": "color" },
+        "strong":  { "$value": "{Primitives.color.gold.700}", "$type": "color" }
+      }
+    }
+  },
+
+  "Typography": {
+    "family": {
+      "display": { "$value": "SVN-Poppins", "$type": "fontFamily" },
+      "body":    { "$value": "SVN-Poppins", "$type": "fontFamily" },
+      "brand":   { "$value": "SUIT",        "$type": "fontFamily" }
+    },
+    "weight": {
+      "regular":  { "$value": 400, "$type": "fontWeight" },
+      "medium":   { "$value": 500, "$type": "fontWeight" },
+      "semibold": { "$value": 600, "$type": "fontWeight" },
+      "bold":     { "$value": 700, "$type": "fontWeight" }
+    },
+    "size": {
+      "xs":      { "$value": 12, "$type": "dimension" },
+      "sm":      { "$value": 13, "$type": "dimension" },
+      "base":    { "$value": 14, "$type": "dimension" },
+      "md":      { "$value": 16, "$type": "dimension" },
+      "lg":      { "$value": 18, "$type": "dimension" },
+      "xl":      { "$value": 24, "$type": "dimension" },
+      "2xl":     { "$value": 26, "$type": "dimension" },
+      "3xl":     { "$value": 34, "$type": "dimension" },
+      "display": { "$value": 64, "$type": "dimension" }
+    },
+    "style": {
+      "display":      { "$value": { "fontFamily": "SVN-Poppins", "fontWeight": 700, "fontSize": 64, "lineHeight": 1.1, "letterSpacing": "-0.01em" }, "$type": "typography" },
+      "sectionTitle": { "$value": { "fontFamily": "SVN-Poppins", "fontWeight": 700, "fontSize": 34, "lineHeight": 1.2, "letterSpacing": "-0.01em" }, "$type": "typography" },
+      "cardHeading":  { "$value": { "fontFamily": "SVN-Poppins", "fontWeight": 700, "fontSize": 26, "lineHeight": 1.3 }, "$type": "typography" },
+      "lede":         { "$value": { "fontFamily": "SVN-Poppins", "fontWeight": 400, "fontSize": 18, "lineHeight": 1.5 }, "$type": "typography" },
+      "inputValue":   { "$value": { "fontFamily": "SVN-Poppins", "fontWeight": 700, "fontSize": 16, "lineHeight": 1.2 }, "$type": "typography" },
+      "label":        { "$value": { "fontFamily": "SVN-Poppins", "fontWeight": 700, "fontSize": 14, "lineHeight": 1.2 }, "$type": "typography" },
+      "caption":      { "$value": { "fontFamily": "SVN-Poppins", "fontWeight": 400, "fontSize": 13, "lineHeight": 1.5 }, "$type": "typography" },
+      "eyebrow":      { "$value": { "fontFamily": "SVN-Poppins", "fontWeight": 700, "fontSize": 11, "lineHeight": 1.0, "letterSpacing": "0.12em" }, "$type": "typography" },
+      "buttonLabel":  { "$value": { "fontFamily": "SVN-Poppins", "fontWeight": 700, "fontSize": 14, "lineHeight": 1.0 }, "$type": "typography" }
+    }
+  },
+
+  "Spacing": {
+    "0":  { "$value": 0,  "$type": "dimension" },
+    "1":  { "$value": 4,  "$type": "dimension" },
+    "2":  { "$value": 8,  "$type": "dimension" },
+    "3":  { "$value": 12, "$type": "dimension" },
+    "4":  { "$value": 16, "$type": "dimension" },
+    "5":  { "$value": 20, "$type": "dimension" },
+    "6":  { "$value": 24, "$type": "dimension" },
+    "8":  { "$value": 32, "$type": "dimension" },
+    "10": { "$value": 40, "$type": "dimension" },
+    "12": { "$value": 48, "$type": "dimension" },
+    "14": { "$value": 54, "$type": "dimension" },
+    "16": { "$value": 64, "$type": "dimension" },
+    "20": { "$value": 80, "$type": "dimension" }
+  },
+
+  "Radius": {
+    "none": { "$value": 0,   "$type": "dimension" },
+    "xs":   { "$value": 4,   "$type": "dimension" },
+    "sm":   { "$value": 6,   "$type": "dimension" },
+    "md":   { "$value": 8,   "$type": "dimension" },
+    "lg":   { "$value": 10,  "$type": "dimension" },
+    "xl":   { "$value": 20,  "$type": "dimension" },
+    "full": { "$value": 999, "$type": "dimension" }
+  },
+
+  "Shadow": {
+    "none": { "$value": "none", "$type": "shadow" },
+    "sm":   { "$value": { "offsetX": 0, "offsetY": 1,  "blur": 2,  "spread": 0, "color": "#00000014" }, "$type": "shadow" },
+    "md":   { "$value": { "offsetX": 0, "offsetY": 4,  "blur": 12, "spread": 0, "color": "#0000000F" }, "$type": "shadow" },
+    "card": { "$value": { "offsetX": 0, "offsetY": 4,  "blur": 4,  "spread": 0, "color": "#0000000F" }, "$type": "shadow" },
+    "lg":   { "$value": { "offsetX": 0, "offsetY": 12, "blur": 32, "spread": 0, "color": "#00000014" }, "$type": "shadow" }
+  }
+}
