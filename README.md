@@ -30,7 +30,9 @@ promise-card-2026/
 │   │   ├── screens/
 │   │   │   └── 02-create-editor.md  # 청첩장 제작하기 기능 명세 (40개 기능)
 │   │   ├── IA.md            # 정보 아키텍처 (사이트맵·URL 구조)
-│   │   └── v1-설계서.md     # 기술 스택·DB·API 설계
+│   │   └── v2-설계서.md     # 시스템 아키텍처·DB·API·인증 설계
+│   ├── _templates/          # 분석서·보고서 템플릿 (구현 후 작성)
+│   ├── 05-tech_doc/         # DDL SQL
 │   └── decisions.md         # 주요 결정 사항 로그 (매 세션 자동 업데이트)
 ├── CLAUDE.md                # Claude Code 개발 규칙 (AI 지시서)
 └── .mcp.json                # Figma MCP 설정
