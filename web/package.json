@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "react": "^19",
@@ -25,6 +26,8 @@
     "tailwindcss": "^4",
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
-    "eslint-config-next": "^15"
+    "eslint-config-next": "^15",
+    "prettier": "^3",
+    "prettier-plugin-tailwindcss": "^0.6"
   }
 }
