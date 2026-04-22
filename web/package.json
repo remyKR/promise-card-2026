@@ -15,8 +15,7 @@
     "react-dom": "^19",
     "next": "^15",
     "@supabase/supabase-js": "^2",
-    "@supabase/ssr": "^0",
-    "next-intl": "^4"
+    "@supabase/ssr": "^0"
   },
   "devDependencies": {
     "typescript": "^5",
