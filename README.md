@@ -24,7 +24,11 @@ promise-card-2026/
 │       ├── hooks/           # 커스텀 훅
 │       └── types/           # TypeScript 타입
 ├── api/                     # NestJS 백엔드 (선택)
-├── docs/                    # 기획·설계 문서
+├── docs/
+│   ├── 01-plan/             # 기획서
+│   ├── 02-design/           # 설계서·화면 기능 명세
+│   └── decisions.md         # 주요 결정 사항 로그 (매 세션 자동 업데이트)
+├── CLAUDE.md                # Claude Code 개발 규칙 (AI 지시서)
 └── .mcp.json                # Figma MCP 설정
 ```
 
