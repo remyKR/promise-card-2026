@@ -1,0 +1,341 @@
+# PromiseCard Information Architecture (IA)
+
+> 작성일: 2025-02-01
+> 버전: v1.4
+
+---
+
+## 사이트맵 (Visual)
+
+```mermaid
+flowchart TB
+    subgraph PUBLIC["🌐 Public Pages"]
+        HOME["🏠 Home<br/>/"]
+        HOME --> CREATE["📝 Create Invitation<br/>/create"]
+        HOME --> SAMPLES["🎨 Design Samples<br/>/samples"]
+
+        REVIEWS["⭐ Reviews<br/>/reviews"]
+        REVIEWS --> PHOTO["📷 Photo Reviews<br/>/reviews/photo"]
+
+        FAQ["❓ FAQ<br/>/faq"]
+
+        SUPPORT["🎧 Support<br/>/support"]
+        SUPPORT --> NOTICE["📢 Notices<br/>/support/notice"]
+        SUPPORT --> TERMS["📄 Terms<br/>/support/terms"]
+
+        CARD["💌 View Invitation<br/>/card/[code]"]
+    end
+
+    subgraph AUTH["🔐 Auth Pages"]
+        LOGIN["🔑 Login<br/>/login"]
+        SIGNUP["✏️ Sign Up<br/>/signup"]
+        VERIFY["📱 Phone Verification<br/>/verify-phone"]
+        LOGIN --> VERIFY
+        SIGNUP --> VERIFY
+    end
+
+    subgraph PRIVATE["👤 Private Pages (로그인 필수)"]
+        REVIEWS --> WRITE["✍️ Write Review<br/>/reviews/write"]
+
+        SUPPORT --> INQUIRY["💬 Contact Us<br/>/support/inquiry"]
+        SUPPORT --> HISTORY["📋 My Inquiries<br/>/support/inquiry/history"]
+
+        MY["👤 My Page<br/>/my"]
+        MY --> MYCARDS["💌 My Invitations<br/>/my/cards"]
+        MY --> ACCOUNT["⚙️ Account Settings<br/>/my/account"]
+    end
+
+    VERIFY --> MY
+```
+
+---
+
+## 사용자 플로우 (User Flow)
+
+```mermaid
+flowchart LR
+    A["🏠 홈 방문"] --> B{"로그인?"}
+    B -->|No| C["🔑 로그인/회원가입"]
+    C --> D["📱 전화번호 인증"]
+    D --> E["✅ 인증 완료"]
+    B -->|Yes| E
+    E --> F["📝 청첩장 제작"]
+    F --> G["🎨 템플릿 선택"]
+    G --> H["✏️ 정보 입력"]
+    H --> I["👁️ 미리보기"]
+    I --> J{"저장?"}
+    J -->|임시저장| K["📂 My Invitations"]
+    J -->|저장완료| L["🔗 공유 링크 생성"]
+    L --> M["📤 SNS 공유"]
+```
+
+---
+
+## 1. 사이트맵 (Text)
+
+```
+promisecard.vn
+│
+├── 모바일 청첩장 (/) ← 랜딩페이지
+│   ├── 청첩장 제작하기 (/create)
+│   └── 디자인 샘플 보기 (/samples)
+│
+├── 고객후기 (/reviews)
+│   ├── 전체 후기 (/reviews)
+│   ├── 포토 후기 (/reviews/photo)
+│   └── 후기 작성 (/reviews/write) ← 로그인
+│
+├── FAQ (/faq)
+│
+├── 고객센터 (/support)
+│   ├── 공지사항 (/support/notice)
+│   ├── 1:1 문의 (/support/inquiry) ← 로그인
+│   ├── 문의 내역 (/support/inquiry/history) ← 로그인
+│   └── 이용약관 (/support/terms)
+│
+└── 마이페이지 (/my) ← 로그인 시
+    ├── 모바일 청첩장 (/my/cards) ← 내 청첩장 목록
+    ├── 고객센터 → /support (링크)
+    ├── 내 계정관리 (/my/account)
+    └── 로그아웃
+    또는
+    로그인/회원가입 (/login, /signup) ← 비로그인 시
+```
+
+---
+
+## 2. 네비게이션 상태
+
+### 비로그인 상태
+
+```
+[Logo] [모바일 청첩장] [고객후기] [FAQ] [고객센터] [로그인/회원가입]
+```
+
+### 로그인 상태
+
+```
+[Logo] [모바일 청첩장] [고객후기] [FAQ] [고객센터] [마이페이지]
+```
+
+---
+
+## 3. 페이지 상세
+
+### 3.1 모바일 청첩장 (/) - 랜딩페이지
+
+| 항목 | 내용 |
+|------|------|
+| **경로** | `/` |
+| **목적** | 서비스 소개, 청첩장 제작 유도 |
+| **주요 요소** | 히어로, 가치 제안, 템플릿 미리보기, CTA |
+
+#### 2 Depth
+
+| 페이지 | 경로 | 설명 |
+|--------|------|------|
+| 청첩장 제작하기 | `/create` | 템플릿 선택 → 정보 입력 → 미리보기 → 저장 |
+| 디자인 샘플 보기 | `/samples` | 템플릿 갤러리, 필터/검색 |
+
+---
+
+### 3.2 고객후기 (/reviews)
+
+| 항목 | 내용 |
+|------|------|
+| **경로** | `/reviews` |
+| **목적** | 실제 사용 후기, 신뢰도 구축 |
+| **주요 요소** | 후기 카드, 별점, 사진 |
+
+#### 2 Depth
+
+| 페이지 | 경로 | 인증 | 설명 |
+|--------|------|------|------|
+| 전체 후기 | `/reviews` | - | 전체 후기 목록, 정렬/필터 |
+| 포토 후기 | `/reviews/photo` | - | 사진이 포함된 후기만 |
+| 후기 작성 | `/reviews/write` | 로그인 | 별점, 사진, 텍스트 입력 |
+
+---
+
+### 3.3 FAQ (/faq)
+
+| 항목 | 내용 |
+|------|------|
+| **경로** | `/faq` |
+| **목적** | 자주 묻는 질문 답변 |
+| **주요 요소** | 아코디언 Q&A |
+| **2 Depth** | TBD |
+
+---
+
+### 3.4 고객센터 (/support)
+
+| 항목 | 내용 |
+|------|------|
+| **경로** | `/support` |
+| **목적** | 1:1 문의, 문제 해결 |
+| **주요 요소** | 메뉴 허브, 빠른 링크 |
+
+#### 2 Depth
+
+| 페이지 | 경로 | 인증 | 설명 |
+|--------|------|------|------|
+| 공지사항 | `/support/notice` | - | 서비스 공지, 업데이트 안내 |
+| 1:1 문의 | `/support/inquiry` | 로그인 | 문의 폼 (카테고리, 내용, 첨부) |
+| 문의 내역 | `/support/inquiry/history` | 로그인 | 내 문의 목록, 답변 확인 |
+| 이용약관 | `/support/terms` | - | 서비스 이용약관, 개인정보처리방침 |
+
+---
+
+### 3.5 마이페이지 (/my)
+
+| 항목 | 내용 |
+|------|------|
+| **경로** | `/my` |
+| **목적** | 내 정보 및 청첩장 관리 |
+| **주요 요소** | 메뉴 목록 |
+| **인증** | 로그인 필요 |
+
+#### 2 Depth
+
+| 페이지 | 경로 | 설명 |
+|--------|------|------|
+| 모바일 청첩장 | `/my/cards` | 내 청첩장 목록 (임시저장/저장) |
+| 고객센터 | → `/support` | 고객센터로 링크 이동 |
+| 내 계정관리 | `/my/account` | 계정 정보 수정 |
+| 로그아웃 | (액션) | 로그아웃 후 홈으로 이동 |
+
+#### 3.5.1 모바일 청첩장 (/my/cards)
+
+| 항목 | 내용 |
+|------|------|
+| **목적** | 내가 만든 청첩장 관리 |
+| **주요 요소** | 청첩장 카드 목록 |
+
+| 상태 | 설명 | 액션 |
+|------|------|------|
+| `draft` | 임시저장 | 편집, 삭제 |
+| `published` | 저장완료 | 편집, 공유, 삭제 |
+
+#### 3.5.2 내 계정관리 (/my/account)
+
+| 항목 | 내용 |
+|------|------|
+| **목적** | 계정 정보 수정 |
+
+| 필드 | 타입 | 설명 |
+|------|------|------|
+| 닉네임 | 텍스트 입력 | 표시 이름 변경 |
+| 휴대폰번호 | 텍스트 + 인증 | 번호 변경 시 재인증 필요 |
+| 이벤트/광고 알림 수신 | 체크박스 | 마케팅 수신 동의 |
+| 회원탈퇴 | 링크/버튼 | 탈퇴 확인 모달 |
+
+| 버튼 | 동작 |
+|------|------|
+| 취소 | 변경사항 취소, 마이페이지로 이동 |
+| 저장 | 변경사항 저장 |
+
+---
+
+### 3.6 로그인 (/login)
+
+| 항목 | 내용 |
+|------|------|
+| **경로** | `/login` |
+| **목적** | 사용자 인증 |
+| **주요 요소** | 이메일/비밀번호, 소셜 로그인 |
+| **노출 조건** | 비로그인 시 |
+
+---
+
+### 3.7 회원가입 (/signup)
+
+| 항목 | 내용 |
+|------|------|
+| **경로** | `/signup` |
+| **목적** | 신규 회원 등록 |
+| **주요 요소** | 가입 폼, 약관 동의 |
+| **노출 조건** | 비로그인 시 |
+
+---
+
+## 4. URL 구조
+
+### 1 Depth
+
+| 페이지 | URL | 인증 | 비고 |
+|--------|-----|------|------|
+| 모바일 청첩장 | `/` | - | 랜딩페이지 |
+| 고객후기 | `/reviews` | - | |
+| FAQ | `/faq` | - | |
+| 고객센터 | `/support` | - | |
+| 로그인 | `/login` | 비로그인 | |
+| 회원가입 | `/signup` | 비로그인 | |
+| 마이페이지 | `/my` | 로그인 | |
+| 청첩장 보기 | `/card/[code]` | - | 공개 페이지 |
+
+### 2 Depth
+
+| 1 Depth | 페이지 | URL | 인증 |
+|---------|--------|-----|------|
+| 모바일 청첩장 | 청첩장 제작하기 | `/create` | 로그인 |
+| 모바일 청첩장 | 디자인 샘플 보기 | `/samples` | - |
+| 고객후기 | 전체 후기 | `/reviews` | - |
+| 고객후기 | 포토 후기 | `/reviews/photo` | - |
+| 고객후기 | 후기 작성 | `/reviews/write` | 로그인 |
+| 고객센터 | 공지사항 | `/support/notice` | - |
+| 고객센터 | 1:1 문의 | `/support/inquiry` | 로그인 |
+| 고객센터 | 문의 내역 | `/support/inquiry/history` | 로그인 |
+| 고객센터 | 이용약관 | `/support/terms` | - |
+| 마이페이지 | 모바일 청첩장 | `/my/cards` | 로그인 |
+| 마이페이지 | 내 계정관리 | `/my/account` | 로그인 |
+
+---
+
+## 5. 페이지 네이밍 (영문)
+
+| 한글 | 영문 (Page Name) | URL | 파일명 |
+|------|-----------------|-----|--------|
+| 모바일 청첩장 (홈) | Home | `/` | `page.tsx` |
+| 청첩장 제작하기 | Create Invitation | `/create` | `create/page.tsx` |
+| 디자인 샘플 보기 | Design Samples | `/samples` | `samples/page.tsx` |
+| 고객후기 | Reviews | `/reviews` | `reviews/page.tsx` |
+| 포토 후기 | Photo Reviews | `/reviews/photo` | `reviews/photo/page.tsx` |
+| 후기 작성 | Write Review | `/reviews/write` | `reviews/write/page.tsx` |
+| FAQ | FAQ | `/faq` | `faq/page.tsx` |
+| 고객센터 | Support | `/support` | `support/page.tsx` |
+| 공지사항 | Notices | `/support/notice` | `support/notice/page.tsx` |
+| 1:1 문의 | Contact Us | `/support/inquiry` | `support/inquiry/page.tsx` |
+| 문의 내역 | My Inquiries | `/support/inquiry/history` | `support/inquiry/history/page.tsx` |
+| 이용약관 | Terms | `/support/terms` | `support/terms/page.tsx` |
+| 로그인 | Login | `/login` | `login/page.tsx` |
+| 회원가입 | Sign Up | `/signup` | `signup/page.tsx` |
+| 전화번호 인증 | Phone Verification | `/verify-phone` | `verify-phone/page.tsx` |
+| 마이페이지 | My Page | `/my` | `my/page.tsx` |
+| 내 청첩장 | My Invitations | `/my/cards` | `my/cards/page.tsx` |
+| 내 계정관리 | Account Settings | `/my/account` | `my/account/page.tsx` |
+| 청첩장 보기 | View Invitation | `/card/[code]` | `card/[code]/page.tsx` |
+
+---
+
+## 6. 2 Depth 요약
+
+| 1 Depth | 2 Depth |
+|---------|---------|
+| 모바일 청첩장 (/) | 청첩장 제작하기, 디자인 샘플 보기 |
+| 고객후기 | 전체 후기, 포토 후기, 후기 작성 |
+| FAQ | - (단일 페이지) |
+| 고객센터 | 공지사항, 1:1 문의, 문의 내역, 이용약관 |
+| 마이페이지 | 모바일 청첩장, 고객센터(링크), 내 계정관리, 로그아웃 |
+
+---
+
+## 변경 이력
+
+| 날짜 | 버전 | 변경 내용 |
+|------|------|----------|
+| 2025-02-01 | v1.0 | 1 Depth IA 작성 |
+| 2025-02-01 | v1.1 | 2 Depth 추가 (모바일 청첩장, 고객후기, 고객센터) |
+| 2025-02-01 | v1.2 | 마이페이지 2 Depth 추가 |
+| 2025-02-01 | v1.3 | 페이지 영문 네이밍 추가 |
+| 2025-02-01 | v1.4 | Mermaid 다이어그램 추가 (사이트맵, 유저플로우) |

@@ -8,7 +8,8 @@
       "mcp__TalkToFigma__get_document_info",
       "mcp__TalkToFigma__set_corner_radius",
       "mcp__TalkToFigma__set_stroke_color",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit *)"
     ]
   },
   "enableAllProjectMcpServers": true,
