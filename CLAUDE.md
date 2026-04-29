@@ -28,6 +28,28 @@ docs/01-기획/  →  docs/02-정책/  →  docs/03-설계/  →  구현
 - 폴더 구조·네이밍 규칙 변경
 - 외부 서비스·API 선택
 
+## ⚠️ Figma 연결 규칙 (MANDATORY)
+
+**Figma 작업은 반드시 공식 Figma MCP/Skills로만 수행한다.**
+
+- ✅ **사용**: `plugin:figma:figma` MCP 서버 (`use_figma`, `get_design_context`, `get_screenshot` 등)
+- ✅ **사용**: `figma:figma-use` 스킬 (write 작업 전 필수 prerequisite)
+- ✅ **사용**: `figma:figma-implement-design`, `figma:figma-generate-design`, `figma:figma-code-connect` 등
+- ❌ **사용 금지**: TalkToFigma MCP (cursor-talk-to-figma-mcp) — 비공식 도구이므로 제외
+- **이유**: 공식 Figma MCP가 Code Connect, Design Tokens, 디자인 컨텍스트 등 더 풍부한 통합 제공
+- **연결 방식**: 사용자가 Figma URL(`figma.com/design/...`) 또는 nodeId 공유 → Claude는 공식 MCP로 접근
+
+### 📌 프로젝트 Figma 파일 URL (변경 시 즉시 갱신)
+
+| 화면 | URL | fileKey | nodeId |
+|---|---|---|---|
+| **edit (에디터)** | https://www.figma.com/design/SxYKVampdcWagoaiBohmNJ/UI-final?node-id=1-1244 | `SxYKVampdcWagoaiBohmNJ` | `1:1244` |
+
+**규칙**:
+- 사용자가 "edit 파일 편집" / "에디터 디자인 수정" 등을 요청하면 위 URL/nodeId를 **자동으로 사용**한다 (재확인 불필요)
+- 새 화면(홈, 청첩장 열람, 마이페이지 등) URL이 공유되면 위 표에 추가
+- nodeId 표기: URL의 `node-id=1-1244` → MCP 호출 시 `1:1244` (하이픈을 콜론으로 변환)
+
 형식:
 ```
 ## YYYY-MM-DD
@@ -147,7 +169,7 @@ cd web && pnpm build
 
 ```
 1. [사용자] Figma에서 화면 디자인
-2. [Claude] Figma에서 디자인 읽기 (TalkToFigma MCP)
+2. [Claude] Figma에서 디자인 읽기 (공식 Figma MCP — `plugin:figma:figma`)
 3. [Claude] 컴포넌트 구현
 4. [Claude] pnpm type-check 실행 → 오류 수정
 5. [사용자] 브라우저에서 확인

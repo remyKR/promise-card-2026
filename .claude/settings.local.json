@@ -1,19 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "mcp__TalkToFigma__create_frame",
-      "mcp__TalkToFigma__create_text",
-      "mcp__TalkToFigma__delete_node",
-      "mcp__TalkToFigma__join_channel",
-      "mcp__TalkToFigma__get_document_info",
-      "mcp__TalkToFigma__set_corner_radius",
-      "mcp__TalkToFigma__set_stroke_color",
       "Bash(git add *)",
       "Bash(git commit *)"
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "TalkToFigma"
-  ]
+  "enabledMcpjsonServers": []
 }
